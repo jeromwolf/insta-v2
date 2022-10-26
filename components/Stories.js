@@ -5,8 +5,18 @@ import { useSession } from "next-auth/react";
 
 function Stories({ randomUsersResults }) {
     const [suggestions,setSuggestions ] = useState([]);
-    //setSuggestions(randomUsersResults);
-    console.log(randomUsersResults);
+ 
+    useEffect(() => {
+        const suggestions = [...Array(30)].map((_, i) =>  (
+            {
+                ...faker.helpers.contextualCard(),
+                id: i
+            }
+        )); 
+        setSuggestions(suggestions);
+        console.log(suggestions);
+    }, []); 
+    
 
     const { data: session } = useSession();
     console.log(session);
@@ -18,8 +28,10 @@ function Stories({ randomUsersResults }) {
             {session && (
                 <Story  img={session.user.image} username={session.user.username} />
             )}
-            {randomUsersResults?.slice(0, 25).map(profile => (
-                <Story key={profile.login.username} img={profile.picture.thumbnail} username={profile.login.username} />
+            {suggestions?.map(profile => (
+                <Story key={profile.username} 
+                  img={profile.avatar}
+                  username={profile.username} />
             ))} 
         </div>
     )
