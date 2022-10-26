@@ -30,7 +30,7 @@ function Stories({ randomUsersResults }) {
             )}
             {suggestions?.map(profile => (
                 <Story key={profile.username} 
-                  img={profile.avatar}
+                  img="https://photocloud.sbs.co.kr/origin/edit/S01_P457544210/615d2ae857a30b242e436115-p.png"
                   username={profile.username} />
             ))} 
         </div>
